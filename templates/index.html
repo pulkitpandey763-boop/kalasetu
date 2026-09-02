@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KalaSetu | Indian State & City Heritage Craft Marketplace & Sanskriti AI</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #78350f;
+            --primary-dark: #451a03;
+            --accent: #d97706;
+            --accent-gold: #f59e0b;
+            --bg: #fdfbf7;
+            --surface: #ffffff;
+            --emerald: #059669;
+            --emerald-dark: #047857;
+            --ruby: #991b1b;
+            --text-dark: #1c1917;
+            --text-sub: #57534e;
+            --text-muted: #78716c;
+            --border: #e7e5e4;
+            --border-gold: #fde68a;
+            --sanskriti-orange: #ea580c;
+            --sanskriti-gold: #f59e0b;
+            --shadow-sm: 0 2px 8px rgba(120, 53, 15, 0.06);
+            --shadow-md: 0 8px 24px rgba(120, 53, 15, 0.12);
+            --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.25);
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg); color: var(--text-dark); scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* Announcement Top Bar */
+        .top-impact-banner {
+            background: linear-gradient(90deg, #2a0f02, #542207, #78350f);
+            color: #fef3c7; font-size: 0.78rem; font-weight: 600;
+            padding: 7px 1rem; text-align: center; display: flex; justify-content: center; align-items: center; gap: 15px;
+        }
+        .top-impact-banner span.badge {
+            background: #f59e0b; color: #451a03; padding: 2px 8px; border-radius: 12px; font-weight: 800; font-size: 0.7rem;
+        }
+
+        /* Navigation Header */
+        header {
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px);
+            border-bottom: 1.5px solid #f3ebd8; padding: 0.85rem 2rem;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 20px rgba(120, 53, 15, 0.04);
+        }
+        .nav-wrap { max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+        .brand-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .brand-icon {
+            width: 38px; height: 38px; background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.3rem; box-shadow: 0 4px 10px rgba(120, 53, 15, 0.2);
+        }
+        .logo-text {
+            font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 800;
+            background: linear-gradient(135deg, #451a03, #b45309); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Nav Links & Marketplace Mega Menu */
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-item { position: relative; }
+        .nav-link {
+            text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.9rem;
+            padding: 8px 0; display: inline-flex; align-items: center; gap: 5px; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: var(--accent); }
+
+        .marketplace-dropdown {
+            position: absolute; top: calc(100% + 4px); left: -120px;
+            width: 620px; background: #fff; border-radius: 16px;
+            box-shadow: var(--shadow-lg); border: 1.5px solid #f3ebd8;
+            padding: 1.2rem; display: none; z-index: 150;
+            animation: dropdownFade 0.25s ease forwards;
+        }
+        .marketplace-dropdown::before { content: ''; position: absolute; top: -14px; left: 0; width: 100%; height: 16px; }
+        .nav-item:hover .marketplace-dropdown { display: block; }
+        @keyframes dropdownFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .dropdown-header {
+            font-size: 0.78rem; font-weight: 800; text-transform: uppercase; color: var(--accent);
+            letter-spacing: 1px; margin-bottom: 10px; border-bottom: 1px solid #f5f5f4; padding-bottom: 6px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .states-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .state-card-btn {
+            background: #fafaf9; border: 1.5px solid #e7e5e4; border-radius: 12px; padding: 10px 14px;
+            text-align: left; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; gap: 12px;
+        }
+        .state-card-btn:hover { background: #fef3c7; border-color: var(--accent-gold); transform: translateY(-2px); }
+        .state-card-btn.active {
+            background: #fef3c7; border-color: var(--accent); border-width: 2px;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+        }
+        .state-icon { font-size: 1.6rem; }
+        .state-info h4 { font-size: 0.92rem; font-weight: 800; color: var(--primary); margin-bottom: 2px; }
+        .state-info p { font-size: 0.72rem; color: var(--text-muted); line-height: 1.25; }
+
+        .user-auth-tools { display: flex; gap: 10px; align-items: center; }
+        .btn-talkback-main {
+            background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none;
+            padding: 8px 14px; border-radius: var(--radius-full); font-weight: 700; cursor: pointer;
+            font-size: 0.82rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25);
+        }
+        .talkback-dropdown { position: relative; display: inline-block; }
+        .talkback-menu {
+            display: none; position: absolute; top: calc(100% + 6px); right: 0;
+            background: #fff; min-width: 160px; border-radius: 12px; box-shadow: var(--shadow-md);
+            border: 1px solid var(--border); padding: 6px; z-index: 101;
+        }
+        .talkback-dropdown:hover .talkback-menu { display: block; }
+        .talkback-menu button {
+            width: 100%; padding: 8px 12px; text-align: left; background: none; border: none;
+            font-size: 0.82rem; font-weight: 600; color: var(--text-dark); cursor: pointer; border-radius: 8px;
+        }
+        .talkback-menu button:hover { background: #f0fdf4; color: #047857; }
+
+        .btn-cart {
+            background: #fafaf9; border: 1.5px solid var(--border); color: var(--primary);
+            width: 40px; height: 40px; border-radius: var(--radius-full); display: flex;
+            align-items: center; justify-content: center; position: relative; cursor: pointer;
+        }
+        .cart-badge {
+            position: absolute; top: -4px; right: -4px; background: var(--ruby); color: #fff;
+            font-size: 0.65rem; font-weight: 800; width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; border: 2px solid #fff;
+        }
+
+        /* Sanskriti AI Header Button */
+        .btn-sanskriti-ai {
+            background: linear-gradient(135deg, #ea580c, #f59e0b); color: #fff; border: none;
+            padding: 8px 16px; border-radius: var(--radius-full); font-weight: 800; cursor: pointer; font-size: 0.84rem;
+            display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+            transition: all 0.25s ease;
+        }
+        .btn-sanskriti-ai:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(234, 88, 12, 0.5); }
+
+        /* Floating AI Launcher (Bottom Right) */
+        .floating-ai-launcher {
+            position: fixed; bottom: 26px; right: 26px; z-index: 999;
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+            color: #fff; border: 2.5px solid #fed7aa; padding: 12px 20px;
+            border-radius: var(--radius-full); font-weight: 800; font-size: 0.92rem;
+            cursor: pointer; box-shadow: 0 8px 25px rgba(234, 88, 12, 0.45);
+            display: flex; align-items: center; gap: 8px; transition: all 0.3s;
+        }
+        .floating-ai-launcher:hover { transform: scale(1.06); box-shadow: 0 12px 30px rgba(234, 88, 12, 0.6); }
+
+        .container { max-width: 1320px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ===== STATE HERO SHOWCASE ===== */
+        .state-hero-showcase {
+            position: relative;
+            padding: 4.5rem 0 4rem;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url('https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1600&q=80');
+            transition: background-image 0.6s ease-in-out;
+            overflow: hidden;
+            border-bottom: 3px solid #b45309;
+        }
+
+        .hero-photo-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(20, 8, 3, 0.84) 0%, rgba(45, 17, 4, 0.62) 55%, rgba(20, 8, 3, 0.35) 100%),
+                        radial-gradient(circle at 80% 30%, rgba(217, 119, 6, 0.2) 0%, transparent 60%);
+            z-index: 1; pointer-events: none;
+        }
+
+        .hero-grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 3rem; align-items: center; position: relative; z-index: 2; }
+
+        .backdrop-indicator-pill {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(8px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            padding: 6px 16px; border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 800;
+            color: #fef08a; margin-bottom: 1rem;
+        }
+
+        .state-active-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(253, 230, 138, 0.7);
+            padding: 6px 16px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800;
+            color: #fff; margin-bottom: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .state-hero-title {
+            font-family: 'Cinzel', serif; font-size: 3.2rem; font-weight: 900; line-height: 1.12;
+            color: #ffffff; margin-bottom: 1.2rem; text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+        
+        .shimmer-text {
+            background: linear-gradient(90deg, #fef08a 0%, #f59e0b 30%, #fff 50%, #f59e0b 70%, #fef08a 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerSweep 4s linear infinite;
+            display: inline-block;
+        }
+        @keyframes shimmerSweep { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        .state-hero-desc {
+            font-size: 1.05rem; color: #f5f5f4; line-height: 1.65; margin-bottom: 1.8rem; max-width: 620px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+
+        .state-stat-pills {
+            display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem;
+        }
+        .stat-pill {
+            background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 7px 15px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700;
+            color: #fff; display: flex; align-items: center; gap: 6px;
+        }
+
+        .btn-hero-cta {
+            background: linear-gradient(135deg, #f59e0b, #d97706); color: #1c1917;
+            padding: 13px 26px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 800;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .btn-hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.6); }
+
+        /* Hero Spotlight Glassmorphic Card */
+        .hero-spotlight {
+            background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(16px);
+            border: 2px solid #fde68a; border-radius: var(--radius-lg); padding: 1.4rem;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.35); position: relative;
+        }
+        .spotlight-seal {
+            position: absolute; top: -12px; right: 18px;
+            background: linear-gradient(135deg, #d97706, #78350f);
+            color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: var(--radius-full);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+        .spotlight-img { width: 100%; height: 230px; border-radius: 12px; object-fit: cover; margin-bottom: 0.8rem; }
+
+        /* ===== STATE & CITY EXPLORER SECTION ===== */
+        .state-explorer-hub {
+            background: #ffffff; border: 2px solid #f3ebd8; border-radius: 24px;
+            padding: 2.2rem; margin: 3rem 0 2.5rem; box-shadow: var(--shadow-sm);
+        }
+        .hub-header {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+            border-bottom: 1.5px solid #f5f5f4; padding-bottom: 1.2rem; margin-bottom: 1.5rem;
+        }
+        .active-state-title {
+            font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--primary); font-weight: 800;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .active-state-tag {
+            background: #fef3c7; color: #92400e; font-size: 0.78rem; font-weight: 800;
+            padding: 5px 14px; border-radius: var(--radius-full); border: 1px solid var(--border-gold);
+        }
+
+        /* City Search Box & Fast City Chips */
+        .city-controls-bar {
+            display: grid; grid-template-columns: 1.1fr 1.5fr; gap: 1.5rem; align-items: center; margin-bottom: 2rem;
+        }
+        .city-search-box { position: relative; width: 100%; }
+        .city-search-box input {
+            width: 100%; padding: 13px 18px 13px 44px; border-radius: var(--radius-full);
+            border: 2px solid #e7e5e4; background: #fafaf9; font-size: 0.92rem; font-weight: 600; outline: none;
+            transition: all 0.3s;
+        }
+        .city-search-box input:focus {
+            border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.15);
+        }
+        .city-search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 1.15rem; color: var(--text-muted); }
+
+        .city-pills-scroll {
+            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;
+        }
+        .city-pill-btn {
+            background: #f5f5f4; border: 1.5px solid #e7e5e4; padding: 8px 16px;
+            border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 700; color: var(--text-sub);
+            cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+        }
+        .city-pill-btn:hover { background: #fef3c7; border-color: var(--accent-gold); color: var(--primary); transform: translateY(-1px); }
+        .city-pill-btn.active {
+            background: var(--primary); border-color: var(--primary); color: #fff;
+            box-shadow: 0 4px 12px rgba(120, 53, 15, 0.25);
+        }
+
+        /* Craft Grid with Staggered Cascading Animation */
+        .craft-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        .craft-card {
+            background: #fff; border-radius: 16px; border: 1.5px solid #f0ede6;
+            overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.35s ease;
+            display: flex; flex-direction: column; animation: cardCascade 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes cardCascade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .craft-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-gold); }
+        .img-container { height: 220px; width: 100%; position: relative; overflow: hidden; background: #e7e5e4; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .craft-card:hover .img-container img { transform: scale(1.08); }
+        
+        .tag-location {
+            position: absolute; top: 12px; left: 12px; background: rgba(120, 53, 15, 0.92); backdrop-filter: blur(4px);
+            color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-full);
+        }
+        .tag-gi {
+            position: absolute; bottom: 12px; left: 12px; background: rgba(5, 150, 105, 0.95);
+            color: #fff; font-size: 0.68rem; font-weight: 800; padding: 3px 8px; border-radius: 4px;
+        }
+        .btn-wishlist {
+            position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem;
+        }
+        .btn-wishlist.active { color: #dc2626; }
+
+        .card-body { padding: 1.3rem; display: flex; flex-direction: column; flex: 1; }
+        .artisan-pill { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .artisan-pill span.dot { width: 6px; height: 6px; background: var(--emerald); border-radius: 50%; }
+        
+        .item-title { font-family: 'Cinzel', serif; font-size: 1.12rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; line-height: 1.35; }
+        .craft-history-box { background: #fafaf9; border-left: 3px solid var(--accent); padding: 8px 12px; border-radius: 0 8px 8px 0; margin-bottom: 1rem; font-size: 0.8rem; }
+        .craft-history-box strong { color: var(--primary); display: block; margin-bottom: 2px; }
+        .craft-history-box p { color: var(--text-sub); line-height: 1.4; }
+
+        .card-footer-action {
+            margin-top: auto; padding-top: 12px; border-top: 1px dashed #e7e5e4;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .price-col .amount { font-size: 1.25rem; font-weight: 800; color: #166534; }
+        .price-col .payout-tag { font-size: 0.68rem; color: var(--emerald); font-weight: 700; display: block; }
+
+        .card-buttons { display: flex; gap: 6px; }
+        .btn-story {
+            background: #fef3c7; color: #92400e; border: 1px solid #fde68a;
+            padding: 7px 11px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+        }
+        .btn-buy {
+            background: var(--primary); color: #fff; border: none; padding: 7px 13px;
+            border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-buy:hover { background: var(--primary-dark); }
+
+        /* LearnUp Masterclasses Section */
+        .learnup-section {
+            background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem; margin-bottom: 3.5rem; box-shadow: var(--shadow-sm);
+        }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem; margin-top: 1.5rem; }
+        .course-card { border: 1.5px solid #f3ebd8; border-radius: 14px; padding: 1.5rem; background: #fafaf9; }
+        .course-badge { background: #fee2e2; color: #dc2626; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-full); display: inline-block; margin-bottom: 10px; }
+        .course-card h3 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 8px; font-weight: 700; }
+        .course-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e7e5e4; padding-top: 12px; margin-top: 12px; font-size: 0.8rem; font-weight: 600; }
+        .btn-learn { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: var(--radius-full); cursor: pointer; font-size: 0.82rem; font-weight: 700; }
+
+        /* Cart Drawer */
+        .cart-drawer-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px); z-index: 200; justify-content: flex-end;
+        }
+        .cart-drawer {
+            width: 100%; max-width: 420px; height: 100%; background: #fff;
+            padding: 1.8rem; display: flex; flex-direction: column;
+            box-shadow: -8px 0 30px rgba(0,0,0,0.2); animation: slideInRight 0.3s ease;
+        }
+        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--border); padding-bottom: 1rem; }
+        .cart-items-list { flex: 1; overflow-y: auto; padding: 1rem 0; }
+        .cart-item-row { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f4; }
+        .cart-item-img { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; }
+        .cart-item-details { flex: 1; font-size: 0.85rem; }
+        .cart-item-title { font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
+        .cart-item-price { font-weight: 800; color: #166534; }
+        .cart-impact-notice { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 10px 14px; font-size: 0.8rem; color: #065f46; margin-bottom: 1rem; }
+        .btn-checkout { background: linear-gradient(135deg, var(--emerald), var(--emerald-dark)); color: #fff; width: 100%; padding: 12px; border: none; border-radius: var(--radius-full); font-weight: 700; cursor: pointer; }
+
+        /* Story Modal */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 1rem;
+        }
+        .modal-card {
+            background: #fff; max-width: 580px; width: 100%; border-radius: var(--radius-lg);
+            padding: 2rem; position: relative; max-height: 90vh; overflow-y: auto; border: 2px solid var(--primary);
+        }
+        .close-modal {
+            position: absolute; top: 16px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #78716c;
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: #f5f5f4; transition: all 0.2s;
+        }
+        .close-modal:hover { background: #fee2e2; color: #dc2626; }
+        .modal-title { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--primary); margin-bottom: 12px; }
+        .story-section { margin-top: 14px; border-top: 1px solid #f3ebd8; padding-top: 10px; }
+        .story-section h4 { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; font-weight: 800; }
+        .story-section p { font-size: 0.88rem; color: #44403c; line-height: 1.5; }
+
+        /* ===== SANSKRITI AI INTELLIGENCE ASSISTANT MODAL (PERFECTED) ===== */
+        .ai-chat-card {
+            background: #ffffff; max-width: 560px; width: 100%; border-radius: 22px;
+            padding: 1.5rem; position: relative; border: 2.5px solid var(--sanskriti-orange);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.35); max-height: 90vh; display: flex; flex-direction: column;
+            animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalPop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .ai-chat-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1.5px solid #ffedd5; padding-bottom: 10px; margin-bottom: 10px;
+        }
+        .ai-title-wrap { display: flex; align-items: center; gap: 8px; }
+        .ai-title-wrap h3 { font-size: 1.15rem; font-weight: 800; color: #c2410c; margin: 0; }
+        
+        .ai-header-actions { display: flex; gap: 8px; align-items: center; }
+        .btn-new-chat {
+            background: #fff7ed; border: 1px solid #fdba74; color: #c2410c;
+            padding: 5px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; cursor: pointer;
+            transition: all 0.2s; display: flex; align-items: center; gap: 4px;
+        }
+        .btn-new-chat:hover { background: #fed7aa; }
+
+        .btn-ai-close {
+            background: #fee2e2; border: 1px solid #fca5a5; color: #dc2626;
+            width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-ai-close:hover { background: #ef4444; color: #fff; transform: rotate(90deg); }
+
+        /* Multilingual Language Switcher Bar */
+        .ai-lang-bar {
+            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 10px; scrollbar-width: none;
+        }
+        .lang-chip {
+            background: #fff7ed; border: 1px solid #fdba74; padding: 4px 10px; border-radius: 20px;
+            font-size: 0.72rem; font-weight: 800; color: #c2410c; cursor: pointer; white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .lang-chip:hover, .lang-chip.active {
+            background: var(--sanskriti-orange); color: #fff; border-color: var(--sanskriti-orange);
+        }
+
+        .ai-chat-body {
+            height: 310px; overflow-y: auto; background: #fffbf5; padding: 14px;
+            border-radius: 14px; border: 1.5px solid #fed7aa; margin-bottom: 10px; font-size: 0.88rem;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .ai-msg {
+            background: #ffffff; padding: 12px 14px; border-radius: 14px; border: 1px solid #fed7aa;
+            color: #431407; max-width: 90%; line-height: 1.5; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            position: relative;
+        }
+        .user-msg {
+            background: linear-gradient(135deg, #ea580c, #c2410c); color: #fff;
+            padding: 10px 14px; border-radius: 14px; align-self: flex-end; max-width: 85%;
+            font-weight: 600; box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
+        }
+        .ai-msg-speaker {
+            display: inline-block; cursor: pointer; margin-left: 8px; font-size: 0.95rem;
+            vertical-align: middle;
+        }
+        .ai-msg-time { font-size: 0.65rem; color: #9a3412; display: block; margin-top: 4px; opacity: 0.75; }
+
+        .ai-suggestions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+        .ai-pill {
+            background: #fff7ed; color: #9a3412; font-size: 0.72rem; font-weight: 700;
+            padding: 5px 11px; border-radius: 20px; cursor: pointer; border: 1px solid #fdba74;
+            transition: all 0.2s;
+        }
+        .ai-pill:hover { background: #fed7aa; }
+
+        .ai-input-group { display: flex; gap: 8px; }
+        .ai-input-group input {
+            flex: 1; padding: 11px 16px; border: 2px solid #fdba74; border-radius: var(--radius-full);
+            outline: none; font-size: 0.9rem;
+        }
+        .ai-input-group input:focus { border-color: var(--sanskriti-orange); }
+        .ai-input-group button {
+            background: linear-gradient(135deg, #ea580c, #c2410c); color: #fff; border: none;
+            padding: 11px 22px; border-radius: var(--radius-full); font-weight: 800; cursor: pointer;
+        }
+
+        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: #1c1917; color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-left: 4px solid var(--accent); }
+
+        footer { background: #1c0e04; color: #fdfbf7; padding: 3rem 1.5rem 1.5rem; border-top: 3px solid var(--accent); margin-top: 4rem; }
+        .footer-grid { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 2.5rem; margin-bottom: 2.5rem; }
+        .footer-col h5 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .footer-col p { font-size: 0.85rem; color: #d6d3d1; line-height: 1.6; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-col ul li a { color: #d6d3d1; text-decoration: none; font-size: 0.85rem; }
+        .footer-col ul li a:hover { color: var(--accent-gold); }
+        .footer-bottom { max-width: 1320px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center; font-size: 0.8rem; color: #a8a29e; }
+
+        @media (max-width: 960px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .state-hero-title { font-size: 2.3rem; }
+            .city-controls-bar { grid-template-columns: 1fr; }
+            .marketplace-dropdown { width: 340px; left: 0; }
+            .states-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="top-impact-banner">
+        <span><span class="badge">NATIONAL CRAFT REGISTRY</span> 88% Direct Artisan Payouts • Powered by Sanskriti AI (संस्कृति AI) Multi-Lingual Assistant</span>
+    </div>
+
+    <!-- Header Navigation -->
+    <header role="banner">
+        <div class="nav-wrap">
+            <a href="#" class="brand-logo">
+                <div class="brand-icon">🏛️</div>
+                <div class="logo-text">KalaSetu</div>
+            </a>
+
+            <!-- Nav Links with Marketplace Mega Dropdown -->
+            <nav class="nav-links">
+                <div class="nav-item">
+                    <a href="#marketplace" class="nav-link">🛍️ Marketplace ▾</a>
+                    
+                    <!-- State Selection Dropdown -->
+                    <div class="marketplace-dropdown">
+                        <div class="dropdown-header">
+                            <span>Select Indian State / Region</span>
+                            <span>🖼️ Real Craft Backdrops</span>
+                        </div>
+                        <div class="states-grid">
+                            <div class="state-card-btn active" onclick="selectState('mp')">
+                                <span class="state-icon">🏛️</span>
+                                <div class="state-info">
+                                    <h4>Madhya Pradesh</h4>
+                                    <p>Jabalpur Marble, Maheshwar & Chanderi</p>
+                                </div>
+                            </div>
+                            <div class="state-card-btn" onclick="selectState('rajasthan')">
+                                <span class="state-icon">🏰</span>
+                                <div class="state-info">
+                                    <h4>Rajasthan</h4>
+                                    <p>Jaipur Blue Pottery & Pichwai</p>
+                                </div>
+                            </div>
+                            <div class="state-card-btn" onclick="selectState('up')">
+                                <span class="state-icon">🛕</span>
+                                <div class="state-info">
+                                    <h4>Uttar Pradesh</h4>
+                                    <p>Kashi Banarasi Silk & Chikankari</p>
+                                </div>
+                            </div>
+                            <div class="state-card-btn" onclick="selectState('kashmir')">
+                                <span class="state-icon">🏔️</span>
+                                <div class="state-info">
+                                    <h4>Jammu & Kashmir</h4>
+                                    <p>Srinagar Pashmina & Papier-Mâché</p>
+                                </div>
+                            </div>
+                            <div class="state-card-btn" onclick="selectState('gujarat')">
+                                <span class="state-icon">🦚</span>
+                                <div class="state-info">
+                                    <h4>Gujarat</h4>
+                                    <p>Kutch Rogan & Patan Patola</p>
+                                </div>
+                            </div>
+                            <div class="state-card-btn" onclick="selectState('odisha')">
+                                <span class="state-icon">🎨</span>
+                                <div class="state-info">
+                                    <h4>Odisha & Bengal</h4>
+                                    <p>Puri Palm-Leaf Pattachitra Art</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#learnup" class="nav-link">🎓 LearnUp Hub</a>
+                <a href="#marketplace" class="nav-link">🗺️ City Explorer</a>
+            </nav>
+
+            <div class="user-auth-tools">
+                <!-- Sanskriti AI Assistant Button -->
+                <button class="btn-sanskriti-ai" onclick="openSanskritiModal()">🪷 संस्कृति AI</button>
+                
+                <div class="talkback-dropdown">
+                    <button class="btn-talkback-main">🔊 TalkBack ▾</button>
+                    <div class="talkback-menu">
+                        <button onclick="speakContent('hi')">🇮🇳 Hindi (हिंदी)</button>
+                        <button onclick="speakContent('en')">🇬🇧 English</button>
+                    </div>
+                </div>
+
+                <button class="btn-cart" onclick="toggleCartDrawer()">
+                    🛒
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Floating AI Quick Launcher -->
+    <button class="floating-ai-launcher" onclick="toggleSanskritiModal()">
+        <span>🪷</span>
+        <span>संस्कृति AI Helper</span>
+    </button>
+
+    <!-- ===== DYNAMIC REAL PHOTOGRAPHIC STATE HERO SHOWCASE ===== -->
+    <section class="state-hero-showcase" id="stateHeroSection">
+        
+        <div class="hero-photo-overlay"></div>
+
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="backdrop-indicator-pill" id="backdropPill">
+                    🖼️ Craft Backdrop: Madhya Pradesh Heritage Stone Sculpting & Architecture
+                </div>
+
+                <div class="state-active-badge" id="stateActiveBadge">
+                    🏛️ Active Marketplace: Madhya Pradesh State Registry
+                </div>
+                
+                <h1 class="state-hero-title">
+                    <span id="heroStatePrefix" style="font-size: 1.3rem; font-weight:700; letter-spacing:1.5px; color:#fef08a; display:block; margin-bottom:4px;">AUTHENTIC STATE CLUSTER</span>
+                    <span class="shimmer-text" id="heroStateName">MADHYA PRADESH</span><br>
+                    <span style="font-size: 2rem; color: #ffffff;">Craftsmanship Marketplace</span>
+                </h1>
+                
+                <p class="state-hero-desc" id="heroStateDesc">
+                    Home to the sacred soft marble canyon of Bhedaghat (Jabalpur), Gond folklore art, and Queen Ahilyabai's historic Maheshwari handlooms.
+                </p>
+
+                <div class="state-stat-pills">
+                    <span class="stat-pill" id="statPillClusters">📍 5 Craft Clusters</span>
+                    <span class="stat-pill">🛡️ 100% GI-Tag Verified</span>
+                    <span class="stat-pill">🤝 88% Direct Artisan Payout</span>
+                    <span class="stat-pill" id="statPillWorkshops">🎓 3 Live Masterclasses</span>
+                </div>
+
+                <div>
+                    <a href="#marketplace" class="btn-hero-cta">
+                        Explore City Crafts & Workshops ↓
+                    </a>
+                </div>
+            </div>
+
+            <!-- Spotlight Artifact Card -->
+            <div class="hero-spotlight">
+                <span class="spotlight-seal" id="spotlightSealTag">⭐ GI-Tagged Masterpiece</span>
+                <img id="heroSpotlightImg" src="https://images.unsplash.com/photo-1599818448378-b184ef4fa68f?w=700" alt="Spotlight Craft" class="spotlight-img">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h4 id="heroSpotlightTitle" style="font-family:'Cinzel',serif; color:var(--primary); font-size:1.15rem;">Bhedaghat Soft Marble Sculpted Murti</h4>
+                        <p id="heroSpotlightSub" style="font-size:0.8rem; color:var(--text-sub);">📍 Jabalpur, Madhya Pradesh • GI Tagged</p>
+                    </div>
+                    <span id="heroSpotlightPrice" style="font-size:1.3rem; font-weight:800; color:#166534;">₹2,450</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- ===== STATE & CITY EXPLORER HUB ===== -->
+        <section id="marketplace" class="state-explorer-hub">
+            <div class="hub-header">
+                <div>
+                    <span style="font-size:0.8rem; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">Active Geographic Cluster</span>
+                    <h2 class="active-state-title" id="activeHubTitle">
+                        🏛️ Madhya Pradesh Craft Explorer
+                    </h2>
+                </div>
+                <div class="active-state-tag" id="activeHubSummary">
+                    5 Historic Craft Cities • 6 Artifacts • 3 Masterclasses
+                </div>
+            </div>
+
+            <!-- City Search Bar & City Selector Pills -->
+            <div class="city-controls-bar">
+                <div class="city-search-box">
+                    <span class="city-search-icon">🔍</span>
+                    <input type="text" id="citySearchInput" onkeyup="filterByCityInput()" placeholder="Search city (e.g. Jabalpur, Maheshwar, Bhopal, Jaipur)...">
+                </div>
+
+                <div class="city-pills-scroll" id="cityPillsContainer">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Marketplace Craft Grid for Selected State/City -->
+            <div class="craft-grid" id="craftGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- ===== DYNAMIC LEARNUP HUB FOR SELECTED STATE / CITY ===== -->
+        <section id="learnup" class="learnup-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <span style="color:var(--accent); font-size:0.8rem; font-weight:800; text-transform:uppercase;">Masterclass Workshops</span>
+                    <h2 class="section-main-title" style="font-size: 1.7rem; font-family:'Cinzel',serif; color:var(--primary);" id="learnupHeaderTitle">
+                        🎓 LearnUp Masterclasses in Madhya Pradesh
+                    </h2>
+                    <p style="font-size: 0.88rem; color: var(--text-sub);">Learn ancient chiseling, weaving, and painting directly from master craftsmen of this region.</p>
+                </div>
+            </div>
+
+            <div class="course-grid" id="courseGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Slide-Over Shopping Cart Drawer -->
+    <div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer()">
+        <div class="cart-drawer" onclick="event.stopPropagation()">
+            <div class="cart-header">
+                <h3 style="font-family:'Cinzel',serif; color:var(--primary);">🛍️ Your Heritage Cart</h3>
+                <span style="cursor:pointer; font-size:1.4rem;" onclick="toggleCartDrawer()">&times;</span>
+            </div>
+            
+            <div class="cart-items-list" id="cartItemsList">
+                <p style="color:var(--text-muted); text-align:center; margin-top:2rem;">Your cart is currently empty.</p>
+            </div>
+
+            <div class="cart-impact-notice" id="cartImpactNotice" style="display:none;">
+                ✨ <strong>Artisan Direct Transfer:</strong> <span id="artisanPayoutTotal">₹0</span> directly disbursed to verified craftsmen.
+            </div>
+
+            <div style="border-top: 1.5px solid var(--border); padding-top: 1rem;">
+                <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem; margin-bottom:12px;">
+                    <span>Total Amount:</span>
+                    <span id="cartTotalDisplay">₹0</span>
+                </div>
+                <button class="btn-checkout" onclick="checkoutOrder()">Proceed to Checkout (Direct Artisan Escrow)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Craft Story Modal (With Backdrop Click Close) -->
+    <div class="modal-overlay" id="storyModal" onclick="if(event.target === this) closeStory()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeStory()">&times;</span>
+            <h2 class="modal-title" id="mTitle">Craft Title</h2>
+
+            <div class="story-section">
+                <h4>📜 Cultural History & City Origin</h4>
+                <p id="mHistory"></p>
+            </div>
+
+            <div class="story-section">
+                <h4>🔨 Craftsmanship & Process</h4>
+                <p id="mProcess"></p>
+            </div>
+
+            <div class="story-section">
+                <h4>👨🎨 Master Craftsman & Guild</h4>
+                <p id="mArtisan"></p>
+            </div>
+
+            <div style="margin-top: 18px;">
+                <button class="btn-talkback-main" onclick="readStoryAudio()">🔊 Listen Story Voice</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SANSKRITI AI INTELLIGENCE MULTI-LINGUAL ASSISTANT MODAL (PERFECTED CLOSE) ===== -->
+    <div class="modal-overlay" id="sanskritiModal" onclick="if(event.target === this) closeSanskritiModal()">
+        <div class="ai-chat-card" onclick="event.stopPropagation()">
+            
+            <!-- Header with Title, New Chat & Prominent Close Button -->
+            <div class="ai-chat-header">
+                <div class="ai-title-wrap">
+                    <span style="font-size:1.4rem;">🪷</span>
+                    <div>
+                        <h3>संस्कृति AI (Sanskriti AI)</h3>
+                        <p style="font-size:0.68rem; color:#9a3412; font-weight:700;">Bharatiya Craft & Platform Intelligence</p>
+                    </div>
+                </div>
+
+                <div class="ai-header-actions">
+                    <button class="btn-new-chat" onclick="clearAiChat()" title="Start New Conversation">
+                        🗑️ New Chat
+                    </button>
+                    <button class="btn-ai-close" onclick="closeSanskritiModal()" title="Close Sanskriti AI (Esc)">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <!-- Multi-Lingual Language Selector Bar -->
+            <div class="ai-lang-bar">
+                <button class="lang-chip active" onclick="setAiLanguage('hi', this)">🇮🇳 हिंदी</button>
+                <button class="lang-chip" onclick="setAiLanguage('en', this)">🇬🇧 English</button>
+                <button class="lang-chip" onclick="setAiLanguage('hinglish', this)">Hinglish</button>
+                <button class="lang-chip" onclick="setAiLanguage('sa', this)">🚩 संस्कृतम्</button>
+                <button class="lang-chip" onclick="setAiLanguage('gu', this)">🦚 ગુજરાતી</button>
+                <button class="lang-chip" onclick="setAiLanguage('bn', this)">🎨 বাংলা</button>
+                <button class="lang-chip" onclick="setAiLanguage('mr', this)">🌸 मराठी</button>
+                <button class="lang-chip" onclick="setAiLanguage('ta', this)">🛕 தமிழ்</button>
+            </div>
+
+            <!-- Scrollable Chat Body -->
+            <div class="ai-chat-body" id="aiChatBody">
+                <div class="ai-msg">
+                    नमस्ते! 🙏 मैं <strong>संस्कृति AI</strong> हूँ — कलासेतु का आधिकारिक धरोहर सहायक। आप मुझसे भेड़ाघाट मार्बल, महेश्वरी साड़ियों, 88% सीधे कारीगर भुगतान या वर्कशॉप्स के बारे में किसी भी भाषा में पूछ सकते हैं!
+                    <span class="ai-msg-speaker" onclick="readAiMsg(this)">🔊</span>
+                    <span class="ai-msg-time" id="initMsgTime">Just now</span>
+                </div>
+            </div>
+            
+            <!-- Quick Suggestion Prompts -->
+            <div class="ai-suggestions">
+                <button class="ai-pill" onclick="quickQuery('भेड़ाघाट संगमरमर शिल्प क्या है?')">🗿 Bhedaghat Marble</button>
+                <button class="ai-pill" onclick="quickQuery('88% कारीगर भुगतान कैसे काम करता है?')">💰 88% Direct Payout</button>
+                <button class="ai-pill" onclick="quickQuery('LearnUp वर्कशॉप में कैसे जुड़ें?')">🎓 LearnUp Workshops</button>
+                <button class="ai-pill" onclick="quickQuery('GI Tag वेरीफाई कैसे करें?')">🛡️ GI Tag Verification</button>
+            </div>
+
+            <!-- Interactive Message Input Group -->
+            <div class="ai-input-group">
+                <input type="text" id="aiUserInput" placeholder="Type your message in any language..." onkeydown="if(event.key==='Enter') sendSanskritiQuery()">
+                <button onclick="sendSanskritiQuery()">पूछें (Ask)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5 style="font-size: 1.3rem;">🏛️ KalaSetu India</h5>
+                <p>Preserving Indian indigenous crafts across all states with GI provenance, authentic storytelling, and 88% direct artisan empowerment.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Central & Western</h5>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="selectState('mp')">Madhya Pradesh (Jabalpur, Maheshwar)</a></li>
+                    <li><a href="javascript:void(0)" onclick="selectState('rajasthan')">Rajasthan (Jaipur, Jodhpur)</a></li>
+                    <li><a href="javascript:void(0)" onclick="selectState('gujarat')">Gujarat (Kutch, Patan)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Northern & Eastern</h5>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="selectState('up')">Uttar Pradesh (Varanasi, Lucknow)</a></li>
+                    <li><a href="javascript:void(0)" onclick="selectState('kashmir')">Jammu & Kashmir (Srinagar)</a></li>
+                    <li><a href="javascript:void(0)" onclick="selectState('odisha')">Odisha (Raghurajpur, Puri)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Help & Support</h5>
+                <p>GI Registry Helpline: 1800-KALA-SETU</p>
+                <p>Email: contact@kalasetu.gov.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 KalaSetu Cultural Handicrafts Platform. All India Geographical Indications Protected.
+        </div>
+    </footer>
+
+    <!-- JavaScript with Guaranteed Modal Close & Real Sanskriti AI Chat -->
+    <script>
+        const stateDatabase = {
+            mp: {
+                name: "MADHYA PRADESH",
+                icon: "🏛️",
+                prefix: "THE SACRED HEART OF INDIAN HERITAGE",
+                desc: "Home to the sacred soft marble canyon of Bhedaghat (Jabalpur), Gond folklore art, and Queen Ahilyabai's historic Maheshwari handlooms.",
+                bgImage: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1600&q=80",
+                bgCaption: "Madhya Pradesh Heritage Stone Sculpting & Architecture",
+                cities: ["All Cities", "Jabalpur", "Maheshwar", "Chanderi", "Dhar/Bagh", "Bhopal"],
+                summary: "5 Historic Craft Cities • 6 Artifacts • 3 Masterclasses",
+                spotlight: {
+                    title: "Bhedaghat Soft Marble Sculpted Murti",
+                    city: "Jabalpur, MP",
+                    price: "₹2,450",
+                    img: "https://images.unsplash.com/photo-1599818448378-b184ef4fa68f?w=700"
+                },
+                crafts: [
+                    {
+                        id: "mp_jbl_marble",
+                        city: "Jabalpur",
+                        title: "Bhedaghat Soft Marble Rock Idol",
+                        artisan: "Harishiram Prajapati",
+                        history: "Hand-chiseled from pure soft magnesium marble rocks along the Narmada River Gorge in Bhedaghat (Jabalpur).",
+                        process: "Hand chiseling with tempered iron files and natural river sand polishing.",
+                        price: 2450,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1599818448378-b184ef4fa68f?w=600"
+                    },
+                    {
+                        id: "mp_jbl_gond",
+                        city: "Jabalpur",
+                        title: "Original Gond Tribal Canvas Art",
+                        artisan: "Bhajju Shyam Tribal Guild",
+                        history: "Ancient sacred folklore painting by the Gond tribes of Jabalpur and Mandla depicting sacred forest deities.",
+                        process: "Intricate dots and line work using earth clays, sap, and organic pigments.",
+                        price: 3200,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600"
+                    },
+                    {
+                        id: "mp_mah_saree",
+                        city: "Maheshwar",
+                        title: "Handwoven Real Zari Maheshwari Saree",
+                        artisan: "Rani Devvanshi",
+                        history: "Patronized by Rajmata Ahilyabai Holkar in the 18th century; borders mirror Maheshwar Fort carvings.",
+                        process: "Pure silk warp and fine cotton weft interwoven with real Zari on manual pit looms.",
+                        price: 6400,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600"
+                    },
+                    {
+                        id: "mp_chn_saree",
+                        city: "Chanderi",
+                        title: "Royal Chanderi Katan Silk & Zari Weave",
+                        artisan: "Mohammad Salim Ansari",
+                        history: "Practiced since the 13th century in Chanderi, famed for its gossamer lightness and gold motifs.",
+                        process: "Handloom interlocking silk threads with manual Zari bootis.",
+                        price: 5850,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600"
+                    },
+                    {
+                        id: "mp_bgh_print",
+                        city: "Dhar/Bagh",
+                        title: "Authentic Bagh Hand Block Print Dupatta",
+                        artisan: "Khatri Crafts Guild",
+                        history: "Ancient geometric block printing along Baghini river using carved teakwood stamps.",
+                        process: "Vegetable dye printing with pomegranate peel, alum, and fermented iron.",
+                        price: 1450,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1606744824163-985d376605aa?w=600"
+                    },
+                    {
+                        id: "mp_bhp_zari",
+                        city: "Bhopal",
+                        title: "Bhopali Handcrafted Zari Zardozi Batua",
+                        artisan: "Naseem Bano",
+                        history: "300-year-old royal Nawabi embroidery on rich velvets using metallic gold threads.",
+                        process: "Hand Aari needlework framed on wooden Karchob frames.",
+                        price: 1150,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1590736969955-71cc94801759?w=600"
+                    }
+                ],
+                courses: [
+                    {
+                        city: "Jabalpur",
+                        title: "Bhedaghat Marble Sculpting & Chiseling",
+                        instructor: "Harishiram Prajapati (Jabalpur)",
+                        desc: "Learn soft stone selection, chisel control, and river-sand dry polishing.",
+                        badge: "🔴 Live Jabalpur Workshop",
+                        duration: "4 Weeks • Stone Kit Shipped",
+                        price: 1499
+                    },
+                    {
+                        city: "Jabalpur",
+                        title: "Gond Tribal Folk Art Masterclass",
+                        instructor: "Bhajju Shyam Guild (Jabalpur/Mandla)",
+                        desc: "Master dotting patterns, storytelling motifs, and natural plant extract color mixing.",
+                        badge: "🎥 Video Module",
+                        duration: "8 Lessons • Certificate",
+                        price: 999
+                    },
+                    {
+                        city: "Maheshwar",
+                        title: "Maheshwari Pit-Loom Weaving Techniques",
+                        instructor: "Rani Devvanshi (Maheshwar)",
+                        desc: "Learn warp-weft alignment and reversible Ahilya geometric border weaving.",
+                        badge: "🔴 Master Weaver Live",
+                        duration: "3 Weeks",
+                        price: 1799
+                    }
+                ]
+            },
+
+            rajasthan: {
+                name: "RAJASTHAN",
+                icon: "🏰",
+                prefix: "ROYAL LAND OF PALACES & TIMELESS ARTS",
+                desc: "The timeless desert kingdom of Jaipur quartz blue pottery, Pichwai temple paintings, Jodhpur woodwork, and microscopic rice inscriptions.",
+                bgImage: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1600&q=80",
+                bgCaption: "Jaipur Quartz Blue Pottery Studio & Royal Jharokha Art (Rajasthan)",
+                cities: ["All Cities", "Jaipur", "Jodhpur", "Udaipur"],
+                summary: "3 Royal Craft Cities • 3 Artifacts • 2 Masterclasses",
+                spotlight: {
+                    title: "Jaipur Handcrafted Blue Pottery Floral Vase",
+                    city: "Jaipur, Rajasthan",
+                    price: "₹1,650",
+                    img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=700"
+                },
+                crafts: [
+                    {
+                        id: "raj_jpr_pottery",
+                        city: "Jaipur",
+                        title: "Authentic Jaipur Quartz Blue Pottery Vase",
+                        artisan: "Kripal Kumbh Studio",
+                        history: "Turko-Persian craft developed under Maharaja Sawai Ram Singh II using quartz powder instead of clay.",
+                        process: "Quartz powder and glass dough molding, hand-painted with cobalt oxide, fired at 850°C.",
+                        price: 1650,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600"
+                    },
+                    {
+                        id: "raj_jpr_rice",
+                        city: "Jaipur",
+                        title: "Oil-Preserved Micro Rice Name Pendant",
+                        artisan: "Rameshwar Micro-Arts",
+                        history: "Modern artisan micro-miniature innovation where complete names are written on single rice grains.",
+                        process: "Single-hair brush calligraphy under 10x magnification lens inside oil vials.",
+                        price: 499,
+                        gi: false,
+                        img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600"
+                    },
+                    {
+                        id: "raj_udh_pichwai",
+                        city: "Udaipur",
+                        title: "Mewar Pichwai Gold Leaf Painting",
+                        artisan: "Kalyan Joshi Guild",
+                        history: "400-year-old temple art from Nathdwara & Udaipur dedicated to Lord Shrinathji.",
+                        process: "Natural stone colors and 24K gold foil work on organic hand-spun cotton.",
+                        price: 4800,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?w=600"
+                    }
+                ],
+                courses: [
+                    {
+                        city: "Jaipur",
+                        title: "Jaipur Blue Pottery Glaze & Kiln Firing",
+                        instructor: "Kripal Kumbh Studio (Jaipur)",
+                        desc: "Learn no-clay quartz dough mixing, copper oxide blue painting, and low-fire glazing.",
+                        badge: "🔴 Live Jaipur Studio",
+                        duration: "3 Weeks",
+                        price: 1599
+                    },
+                    {
+                        city: "Jaipur",
+                        title: "Micro-Inscription Art on Rice Grains",
+                        instructor: "Rameshwar Micro-Arts (Jaipur)",
+                        desc: "Master high-magnification brush strokes and oil vial sealing techniques.",
+                        badge: "🎥 Self-Paced",
+                        duration: "6 Lessons",
+                        price: 699
+                    }
+                ]
+            },
+
+            up: {
+                name: "UTTAR PRADESH",
+                icon: "🛕",
+                prefix: "SPIRITUAL GHATS & NAWABI WEAVING HEARTLAND",
+                desc: "The sacred ghats of Kashi weaving pure Banarasi silk brocades, Awadhi shadow Chikankari, and Moradabad brass engravings.",
+                bgImage: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1600&q=80",
+                bgCaption: "Varanasi Ganga Ghats & Royal Banarasi Zari Silk Weaving (UP)",
+                cities: ["All Cities", "Varanasi", "Lucknow", "Moradabad"],
+                summary: "3 Heritage Craft Cities • 3 Artifacts • 2 Masterclasses",
+                spotlight: {
+                    title: "Banarasi Real Zari Katan Silk Brocade",
+                    city: "Varanasi, UP",
+                    price: "₹7,200",
+                    img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=700"
+                },
+                crafts: [
+                    {
+                        id: "up_vns_saree",
+                        city: "Varanasi",
+                        title: "Royal Banarasi Handloom Katan Silk Saree",
+                        artisan: "Haji Munna Weaver Guild",
+                        history: "Centuries-old Mughal and Vedic weaving heritage from the ghats of Kashi.",
+                        process: "Woven on jacquard pit looms with pure gold and silver Zari metallic warp.",
+                        price: 7200,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600"
+                    },
+                    {
+                        id: "up_lko_chikan",
+                        city: "Lucknow",
+                        title: "Awadhi Pure Cotton Hand Chikankari Kurta",
+                        artisan: "Begum Akhtar Collective",
+                        history: "Introduced by Mughal Empress Nur Jahan in Lucknow, featuring 32 distinct shadow-work stitches.",
+                        process: "Hand-stitched needlework including Bakhiya, Phanda, and Jaali on fine muslin.",
+                        price: 2600,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1606744824163-985d376605aa?w=600"
+                    },
+                    {
+                        id: "up_mbd_brass",
+                        city: "Moradabad",
+                        title: "Moradabad Hand-Engraved Brass Peacock Urli",
+                        artisan: "Pital Nagri Guild",
+                        history: "Moradabad is India's 'Brass City', famous globally for sand-casting and intricate carving.",
+                        process: "Sand-cast molten brass hand-chiselled with fine floral Nakshi engravings.",
+                        price: 1950,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600"
+                    }
+                ],
+                courses: [
+                    {
+                        city: "Varanasi",
+                        title: "Banarasi Jacquard Loom & Zari Drafting",
+                        instructor: "Haji Munna Guild (Varanasi)",
+                        desc: "Learn Banarasi card punching, warp tensioning, and brocade silk weaving.",
+                        badge: "🔴 Live from Kashi",
+                        duration: "4 Weeks",
+                        price: 1899
+                    },
+                    {
+                        city: "Lucknow",
+                        title: "32 Stitches of Lucknow Chikankari",
+                        instructor: "Begum Akhtar Collective (Lucknow)",
+                        desc: "Master Bakhiya shadow stitch, Murri knots, and airy Jaali needle techniques.",
+                        badge: "🎥 Video Module",
+                        duration: "10 Lessons",
+                        price: 1099
+                    }
+                ]
+            },
+
+            kashmir: {
+                name: "JAMMU & KASHMIR",
+                icon: "🏔️",
+                prefix: "PARADISE OF HIMALAYAN CASHMERE & SOZNI",
+                desc: "High Himalayan Changthangi goat fleece hand-spun into pure Pashmina shawls, needle Sozni embroidery, and Persian Papier Mâché.",
+                bgImage: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1600&q=80",
+                bgCaption: "Kashmir Dal Lake, Golden Chinar & Changthangi Pashmina Looms (J&K)",
+                cities: ["All Cities", "Srinagar"],
+                summary: "Srinagar Paradise Cluster • 2 Artifacts • 1 Masterclass",
+                spotlight: {
+                    title: "Hand-spun Kashmiri Pashmina Sozni Shawl",
+                    city: "Srinagar, J&K",
+                    price: "₹12,500",
+                    img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=700"
+                },
+                crafts: [
+                    {
+                        id: "jk_srn_pashmina",
+                        city: "Srinagar",
+                        title: "Pure Hand-spun Cashmere Pashmina Shawl",
+                        artisan: "Ghulam Hassan Guild",
+                        history: "Spun from Himalayan Changthangi goat fleece and decorated with needle Sozni stitches.",
+                        process: "Hand-spun on wooden Charkha wheel and hand-embroidered with micro needles.",
+                        price: 12500,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600"
+                    },
+                    {
+                        id: "jk_srn_papier",
+                        city: "Srinagar",
+                        title: "Kashmiri Hand-Painted Papier Mâché Box",
+                        artisan: "Mirza Craft House",
+                        history: "Introduced by Sufi saint Mir Sayyid Ali Hamadani in the 14th century from Persia.",
+                        process: "Molded waste paper pulp coated with chalk paste and painted with 24K gold foil flora.",
+                        price: 1200,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600"
+                    }
+                ],
+                courses: [
+                    {
+                        city: "Srinagar",
+                        title: "Pashmina Sozni Micro-Needlework Class",
+                        instructor: "Ghulam Hassan (Srinagar)",
+                        desc: "Learn microscopic needle embroidery on delicate hand-spun Kashmiri cashmere.",
+                        badge: "🔴 Live Srinagar Studio",
+                        duration: "4 Weeks",
+                        price: 1999
+                    }
+                ]
+            },
+
+            gujarat: {
+                name: "GUJARAT",
+                icon: "🦚",
+                prefix: "LAND OF RANN MIRRORWORK & RARE ROGAN ART",
+                desc: "300-year-old rare Nirona Rogan stylus art, Ajrakh geometric block prints, and royal double ikat Patan Patola weaves.",
+                bgImage: "https://images.unsplash.com/photo-1606744824163-985d376605aa?auto=format&fit=crop&w=1600&q=80",
+                bgCaption: "Kutch Hand Block Dyeing & Rare Castor Oil Rogan Painting (Gujarat)",
+                cities: ["All Cities", "Kutch", "Patan"],
+                summary: "2 Iconic Western Clusters • 2 Artifacts • 1 Masterclass",
+                spotlight: {
+                    title: "Kutch Rogan Castor Oil Art Wall Hanging",
+                    city: "Kutch, Gujarat",
+                    price: "₹3,800",
+                    img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?w=700"
+                },
+                crafts: [
+                    {
+                        id: "gj_ktc_rogan",
+                        city: "Kutch",
+                        title: "Nirona Kutch Hand-Painted Rogan Art",
+                        artisan: "Khatri Abdul Gafur (Padma Shri Family)",
+                        history: "Over 300 years old rare Persian art preserved exclusively by one family in Nirona, Kutch.",
+                        process: "Castor oil boiled for 2 days, mixed with mineral pigments, drawn with a brass stylus without touching cloth.",
+                        price: 3800,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?w=600"
+                    },
+                    {
+                        id: "gj_ptn_patola",
+                        city: "Patan",
+                        title: "Patan Pure Silk Double Ikat Patola Scarf",
+                        artisan: "Salvi Patola Weavers",
+                        history: "800-year-old royal double ikat weave where warp and weft are both precision tie-dyed before weaving.",
+                        process: "Hand-dyed naturally; both sides of the woven cloth have identical vibrant patterns.",
+                        price: 8500,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600"
+                    }
+                ],
+                courses: [
+                    {
+                        city: "Kutch",
+                        title: "Kutch Rogan Art Stylus Painting",
+                        instructor: "Khatri Abdul Gafur Family (Kutch)",
+                        desc: "Learn castor oil jelly prep and metallic stylus thread painting on silk.",
+                        badge: "🔴 Rare Heritage Masterclass",
+                        duration: "2 Weeks",
+                        price: 2199
+                    }
+                ]
+            },
+
+            odisha: {
+                name: "ODISHA & BENGAL",
+                icon: "🎨",
+                prefix: "SACRED TEMPLE PATTACHITRA & ETCHED LEAVES",
+                desc: "Ancient palm-leaf etched Pattachitra, Pipili applique work, and Jagannath temple heritage from the artist village of Raghurajpur.",
+                bgImage: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1600&q=80",
+                bgCaption: "Raghurajpur Palm Leaf Etched Pattachitra & Temple Arts (Odisha)",
+                cities: ["All Cities", "Raghurajpur", "Puri"],
+                summary: "2 Sacred Eastern Clusters • 1 Artifact • 1 Masterclass",
+                spotlight: {
+                    title: "Raghurajpur Palm Leaf Etched Pattachitra",
+                    city: "Raghurajpur, Odisha",
+                    price: "₹2,850",
+                    img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=700"
+                },
+                crafts: [
+                    {
+                        id: "od_rgh_pattachitra",
+                        city: "Raghurajpur",
+                        title: "Traditional Palm Leaf Etched Pattachitra",
+                        artisan: "Mahapatra Heritage Studio",
+                        history: "Ancient temple art of Odisha executed on dried palm leaves depicting Gita Govinda tales.",
+                        process: "Etched with iron stylus, rubbed with lamp soot, and colored with natural conch shell pigments.",
+                        price: 2850,
+                        gi: true,
+                        img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600"
+                    }
+                ],
+                courses: [
+                    {
+                        city: "Raghurajpur",
+                        title: "Palm Leaf Etching & Natural Soot Dyeing",
+                        instructor: "Mahapatra Heritage Studio (Raghurajpur)",
+                        desc: "Master palm leaf curing, iron stylus incision, and natural black ink infilling.",
+                        badge: "🎥 Video Module",
+                        duration: "8 Lessons",
+                        price: 899
+                    }
+                ]
+            }
+        };
+
+        let currentActiveStateKey = 'mp';
+        let currentActiveCityFilter = 'All Cities';
+        let cartItems = [];
+        let currentActiveStoryData = null;
+        let activeAiLanguage = 'hi';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            selectState('mp');
+            // Global Escape key listener to close any open modal
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeSanskritiModal();
+                    closeStory();
+                    const cartOverlay = document.getElementById('cartOverlay');
+                    if (cartOverlay) cartOverlay.style.display = 'none';
+                }
+            });
+        });
+
+        // Dynamic State Selection & Hero Heading Real Backdrop Transformation
+        function selectState(stateKey) {
+            currentActiveStateKey = stateKey;
+            currentActiveCityFilter = 'All Cities';
+            const state = stateDatabase[stateKey];
+
+            // 1. Update Hero Photographic Background Image
+            const heroSection = document.getElementById('stateHeroSection');
+            heroSection.style.backgroundImage = `url('${state.bgImage}')`;
+
+            // 2. Update Backdrop Indicator Pill
+            document.getElementById('backdropPill').innerHTML = `🖼️ Craft Backdrop: ${state.bgCaption}`;
+
+            // 3. Transform Hero Heading & Identity
+            document.getElementById('stateActiveBadge').innerHTML = `${state.icon} Active Marketplace: ${state.name} State Registry`;
+            document.getElementById('heroStatePrefix').innerText = state.prefix;
+            document.getElementById('heroStateName').innerText = state.name;
+            document.getElementById('heroStateDesc').innerText = state.desc;
+
+            // Update Stat Pills
+            document.getElementById('statPillClusters').innerText = `📍 ${state.cities.length - 1} Craft Clusters`;
+            document.getElementById('statPillWorkshops').innerText = `🎓 ${state.courses.length} Masterclasses`;
+
+            // 4. Update Spotlight Artifact Card
+            if (state.spotlight) {
+                document.getElementById('heroSpotlightImg').src = state.spotlight.img;
+                document.getElementById('heroSpotlightTitle').innerText = state.spotlight.title;
+                document.getElementById('heroSpotlightSub').innerText = `📍 ${state.spotlight.city} • GI Tagged`;
+                document.getElementById('heroSpotlightPrice').innerText = state.spotlight.price;
+            }
+
+            // 5. Update Marketplace Hub Headers
+            document.getElementById('activeHubTitle').innerHTML = `${state.icon} ${state.name} Craft Explorer`;
+            document.getElementById('activeHubSummary').innerText = state.summary;
+            document.getElementById('learnupHeaderTitle').innerText = `🎓 LearnUp Masterclasses in ${state.name}`;
+
+            // 6. Update Active Highlight in Dropdown
+            document.querySelectorAll('.state-card-btn').forEach(b => b.classList.remove('active'));
+            const matchedBtn = Array.from(document.querySelectorAll('.state-card-btn')).find(b => b.onclick.toString().includes(stateKey));
+            if (matchedBtn) matchedBtn.classList.add('active');
+
+            // 7. Reset City Filter Input & Render Dynamic City Pills + Crafts
+            document.getElementById('citySearchInput').value = '';
+            renderCityPills();
+            renderCraftsAndCourses();
+            
+            showToast(`🏛️ Loaded ${state.name} (${state.bgCaption})`);
+        }
+
+        function renderCityPills() {
+            const state = stateDatabase[currentActiveStateKey];
+            const container = document.getElementById('cityPillsContainer');
+            container.innerHTML = state.cities.map(city => `
+                <button class="city-pill-btn ${city === currentActiveCityFilter ? 'active' : ''}" onclick="filterByCityPill('${city}')">
+                    📍 ${city}
+                </button>
+            `).join('');
+        }
+
+        function filterByCityPill(city) {
+            currentActiveCityFilter = city;
+            document.getElementById('citySearchInput').value = city === 'All Cities' ? '' : city;
+            renderCityPills();
+            renderCraftsAndCourses();
+        }
+
+        function filterByCityInput() {
+            const query = document.getElementById('citySearchInput').value.trim().toLowerCase();
+            const state = stateDatabase[currentActiveStateKey];
+            const matchingCity = state.cities.find(c => c.toLowerCase() === query);
+            currentActiveCityFilter = matchingCity || (query === '' ? 'All Cities' : query);
+            renderCityPills();
+            renderCraftsAndCourses(query);
+        }
+
+        function renderCraftsAndCourses(searchQuery = '') {
+            const state = stateDatabase[currentActiveStateKey];
+            const query = searchQuery.toLowerCase() || (currentActiveCityFilter === 'All Cities' ? '' : currentActiveCityFilter.toLowerCase());
+
+            const filteredCrafts = state.crafts.filter(c => {
+                if (!query) return true;
+                return c.city.toLowerCase().includes(query) || c.title.toLowerCase().includes(query) || c.history.toLowerCase().includes(query);
+            });
+
+            const filteredCourses = state.courses.filter(c => {
+                if (!query) return true;
+                return c.city.toLowerCase().includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query);
+            });
+
+            const craftGrid = document.getElementById('craftGrid');
+            if (filteredCrafts.length === 0) {
+                craftGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; background: #fafaf9; border-radius: 12px;">
+                        <p style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">No crafts found matching "${query}" in ${state.name}.</p>
+                        <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 6px;">Try selecting another city or state from the Marketplace menu.</p>
+                    </div>
+                `;
+            } else {
+                craftGrid.innerHTML = filteredCrafts.map((item, idx) => `
+                    <article class="craft-card" style="animation-delay: ${idx * 0.08}s;">
+                        <div class="img-container">
+                            <img src="${item.img}" alt="${item.title}">
+                            <span class="tag-location">📍 ${item.city}, ${state.name}</span>
+                            ${item.gi ? '<span class="tag-gi">GI Tagged</span>' : ''}
+                            <button class="btn-wishlist" onclick="toggleWishlist(this)">🤍</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="artisan-pill"><span class="dot"></span> Artisan: ${item.artisan}</div>
+                            <h3 class="item-title">${item.title}</h3>
+                            <div class="craft-history-box">
+                                <strong>📜 ${item.city} Heritage:</strong>
+                                <p>${item.history}</p>
+                            </div>
+                            <div class="card-footer-action">
+                                <div class="price-col">
+                                    <span class="amount">₹${item.price.toLocaleString('en-IN')}</span>
+                                    <span class="payout-tag">₹${Math.round(item.price * 0.88).toLocaleString('en-IN')} Direct to Maker</span>
+                                </div>
+                                <div class="card-buttons">
+                                    <button class="btn-story" onclick="openCraftStory('${item.id}')">📖 Story</button>
+                                    <button class="btn-buy" onclick="addToCart('${item.title} (${item.city})', ${item.price}, '${item.img}')">Add +</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            }
+
+            const courseGrid = document.getElementById('courseGrid');
+            if (filteredCourses.length === 0) {
+                courseGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 2rem 1rem; background: #fafaf9; border-radius: 12px;">
+                        <p style="font-size: 0.95rem; color: var(--text-sub);">No masterclasses currently listed for this specific city filter. Check full state offerings above!</p>
+                    </div>
+                `;
+            } else {
+                courseGrid.innerHTML = filteredCourses.map(course => `
+                    <div class="course-card">
+                        <span class="course-badge">${course.badge}</span>
+                        <h3>${course.title}</h3>
+                        <p style="font-size: 0.82rem; color: var(--text-sub); margin-bottom: 6px;"><strong>Instructor:</strong> ${course.instructor}</p>
+                        <p style="font-size: 0.82rem; color: var(--text-sub); line-height: 1.4;">${course.desc}</p>
+                        <div class="course-footer">
+                            <span>⏱️ ${course.duration}</span>
+                            <button class="btn-learn" onclick="showToast('Enrolled in ${course.title}!')">Enroll ₹${course.price}</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Story Modal
+        function openCraftStory(craftId) {
+            const state = stateDatabase[currentActiveStateKey];
+            const craft = state.crafts.find(c => c.id === craftId);
+            if (!craft) return;
+
+            currentActiveStoryData = craft;
+            document.getElementById('mTitle').innerText = `${craft.title} (${craft.city}, ${state.name})`;
+            document.getElementById('mHistory').innerText = craft.history;
+            document.getElementById('mProcess').innerText = craft.process;
+            document.getElementById('mArtisan').innerText = `${craft.artisan} - Master Heritage Craftsman from ${craft.city}.`;
+            document.getElementById('storyModal').style.display = 'flex';
+        }
+        function closeStory() {
+            document.getElementById('storyModal').style.display = 'none';
+            window.speechSynthesis.cancel();
+        }
+
+        function readStoryAudio() {
+            if (!currentActiveStoryData) return;
+            window.speechSynthesis.cancel();
+            const text = `${currentActiveStoryData.title} from ${currentActiveStoryData.city}. History: ${currentActiveStoryData.history}. Craft Process: ${currentActiveStoryData.process}. Artisan: ${currentActiveStoryData.artisan}`;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Cart Drawer Operations
+        function toggleCartDrawer() {
+            const overlay = document.getElementById('cartOverlay');
+            overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function addToCart(title, price, img) {
+            cartItems.push({ title, price, img });
+            updateCartUI();
+            showToast(`Added "${title}" to Cart! 🛍️`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cartItems.length;
+            const list = document.getElementById('cartItemsList');
+            const totalDisplay = document.getElementById('cartTotalDisplay');
+            const impactNotice = document.getElementById('cartImpactNotice');
+            const artisanTotal = document.getElementById('artisanPayoutTotal');
+
+            if (cartItems.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted); text-align:center; margin-top:2rem;">Your cart is currently empty.</p>';
+                totalDisplay.innerText = '₹0';
+                impactNotice.style.display = 'none';
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = cartItems.map((item, idx) => {
+                total += item.price;
+                return `
+                    <div class="cart-item-row">
+                        <img src="${item.img}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">₹${item.price}</div>
+                        </div>
+                        <button style="background:none; border:none; color:red; cursor:pointer;" onclick="removeItem(${idx})">✕</button>
+                    </div>
+                `;
+            }).join('');
+
+            const payout = Math.round(total * 0.88);
+            totalDisplay.innerText = `₹${total.toLocaleString('en-IN')}`;
+            artisanTotal.innerText = `₹${payout.toLocaleString('en-IN')}`;
+            impactNotice.style.display = 'block';
+        }
+
+        function removeItem(index) {
+            cartItems.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkoutOrder() {
+            if (cartItems.length === 0) {
+                showToast('Cart is empty!');
+                return;
+            }
+            showToast('Redirecting to Direct Artisan Escrow Gateway...');
+            setTimeout(() => {
+                alert('Success! 88% payment transferred directly to the verified artisan bank account.');
+                cartItems = [];
+                updateCartUI();
+                toggleCartDrawer();
+            }, 1000);
+        }
+
+        // TalkBack Natural Speech
+        function speakContent(lang) {
+            window.speechSynthesis.cancel();
+            const state = stateDatabase[currentActiveStateKey];
+            const text = lang === 'hi' 
+                ? `कलासेतु में आपका स्वागत है। अभी आप ${state.name} के शिल्प और शहरों का अन्वेषण कर रहे हैं।` 
+                : `Welcome to KalaSetu. You are currently exploring ${state.name}. Search or click any city to access authentic crafts and LearnUp masterclasses.`;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function toggleWishlist(btn) {
+            btn.classList.toggle('active');
+            btn.innerText = btn.classList.contains('active') ? '❤️' : '🤍';
+            showToast(btn.classList.contains('active') ? 'Added to Wishlist!' : 'Removed from Wishlist.');
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        // ===== SANSKRITI AI INTELLIGENCE & CHAT OPERATIONS =====
+        function openSanskritiModal() {
+            document.getElementById('sanskritiModal').style.display = 'flex';
+            setTimeout(() => document.getElementById('aiUserInput').focus(), 100);
+        }
+
+        function closeSanskritiModal() {
+            document.getElementById('sanskritiModal').style.display = 'none';
+            window.speechSynthesis.cancel();
+        }
+
+        function toggleSanskritiModal() {
+            const modal = document.getElementById('sanskritiModal');
+            if (modal.style.display === 'flex') {
+                closeSanskritiModal();
+            } else {
+                openSanskritiModal();
+            }
+        }
+
+        function clearAiChat() {
+            const body = document.getElementById('aiChatBody');
+            body.innerHTML = `
+                <div class="ai-msg">
+                    नमस्ते! 🙏 चैट रीसेट कर दी गई है। आप किसी भी राज्य (म.प्र., राजस्थान, उप्र, कश्मीर, गुजरात, ओडिशा) या शिल्प के बारे में दोबारा पूछ सकते हैं!
+                    <span class="ai-msg-speaker" onclick="readAiMsg(this)">🔊</span>
+                    <span class="ai-msg-time">Just now</span>
+                </div>
+            `;
+            showToast('Chat history cleared! 🗑️');
+        }
+
+        function setAiLanguage(lang, btn) {
+            activeAiLanguage = lang;
+            document.querySelectorAll('.lang-chip').forEach(c => c.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            
+            const greetings = {
+                hi: "नमस्ते! भाषा बदलकर 'हिंदी' कर दी गई है। आप कलासेतु के किसी भी शिल्प, जीआई टैग या वर्कशॉप के बारे में पूछ सकते हैं।",
+                en: "Namaste! Language switched to English. You can ask me about any craft, GI tag, direct payout, or masterclasses across India.",
+                hinglish: "Namaste! Language Hinglish set ho gaya hai. Aap Jabalpur marble, Maheshwari sarees, 88% direct payout ya workshops ke baare mein pooch sakte hain!",
+                sa: "नमस्ते! भाषा संस्कृतेन परिवर्तिता। भवान् भारतस्य शिल्पकलायाः, भौगोलिक-संकेतकस्य (GI Tag) च विषये प्रष्टुं शक्नोति।",
+                gu: "નમસ્તે! ભાષા 'ગુજરાતી' સેટ થઈ ગઈ છે. તમે કચ્છ રોગન આર્ટ, પાટણ પટોળા કે મધ્ય પ્રદેશ શિલ્પ વિશે પૂછી શકો છો.",
+                bn: "নমস্কার! ভাষা 'বাংলা' করা হয়েছে। আপনি কলাসেতু প্ল্যাটফর্মের হস্তশিল্প এবং মাস্টারক্লাস সম্পর্কে জানতে পারেন।",
+                mr: "नमस्कार! भाषा 'मराठी' सेट केली आहे. तुम्ही भारताच्या हस्तकलेबद्दल आणि कलाकारांच्या थेट फायद्याबद्दल विचारू शकता.",
+                ta: "வணக்கம்! மொழி 'தமிழ்' என மாற்றப்பட்டுள்ளது. இந்தியாவின் கைவினைப் பொருட்கள் மற்றும் கலாசேது பற்றி நீங்கள் கேட்கலாம்."
+            };
+
+            const body = document.getElementById('aiChatBody');
+            body.innerHTML += `
+                <div class="ai-msg">
+                    ${greetings[lang] || greetings.hi}
+                    <span class="ai-msg-speaker" onclick="readAiMsg(this)">🔊</span>
+                    <span class="ai-msg-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                </div>
+            `;
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function quickQuery(query) {
+            document.getElementById('aiUserInput').value = query;
+            sendSanskritiQuery();
+        }
+
+        function sendSanskritiQuery() {
+            const input = document.getElementById('aiUserInput');
+            const body = document.getElementById('aiChatBody');
+            const txt = input.value.trim();
+            if (!txt) return;
+
+            const timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            // Add User Message
+            body.innerHTML += `
+                <div class="user-msg">
+                    ${txt}
+                    <span style="font-size:0.6rem; opacity:0.8; display:block; text-align:right; margin-top:3px;">${timeStr}</span>
+                </div>
+            `;
+            input.value = '';
+            body.scrollTop = body.scrollHeight;
+
+            // Generate AI Response with realistic processing
+            setTimeout(() => {
+                const reply = generateSanskritiAiResponse(txt, activeAiLanguage);
+                body.innerHTML += `
+                    <div class="ai-msg">
+                        ${reply}
+                        <span class="ai-msg-speaker" onclick="readAiMsg(this)">🔊</span>
+                        <span class="ai-msg-time">${timeStr}</span>
+                    </div>
+                `;
+                body.scrollTop = body.scrollHeight;
+            }, 400);
+        }
+
+        // Comprehensive KalaSetu Domain Response Generator
+        function generateSanskritiAiResponse(query, lang) {
+            const q = query.toLowerCase();
+
+            // 1. Jabalpur & Bhedaghat Marble
+            if (q.includes('jabalpur') || q.includes('bhedaghat') || q.includes('marble') || q.includes('संगमरमर') || q.includes('भेड़ाघाट') || q.includes('मार्बल')) {
+                if (lang === 'hi') {
+                    return "<strong>संस्कृति AI:</strong> भेड़ाघाट (जबलपुर, म.प्र.) नर्मदा नदी के तट पर स्थित है, जहाँ 200 से अधिक वर्षों से मुलायम सफेद मैग्नीशियम संगमरमर की मूर्तियाँ बनाई जाती हैं। यह 100% जीआई टैग प्रमाणित है और नदी की बालू रेत से प्राकृतिक पॉलिश की जाती है। आप LearnUp में हरिराम प्रजापति की लाइव वर्कशॉप भी ले सकते हैं!";
+                } else if (lang === 'en') {
+                    return "<strong>Sanskriti AI:</strong> Bhedaghat (Jabalpur, MP) is world-renowned for soft magnesium white marble carving along the Narmada Gorge. Hand-chiseled with zero synthetic chemicals, it holds GI-tag certification. You can also join Master Harishiram Prajapati's live sculpting workshop in LearnUp!";
+                } else if (lang === 'gu') {
+                    return "<strong>સંસ્કૃતિ AI:</strong> ભેડાઘાટ (જબલપુર, એમ.પી.) નર્મદા નદીના કાંઠે નરમ સફેદ માર્બલ શિલ્પ માટે જાણીતું છે. આ 100% GI ટેગ પ્રમાણિત છે!";
+                } else if (lang === 'sa') {
+                    return "<strong>संस्कृति AI:</strong> भेड़ाघाट-क्षेत्रे (जबलपुर) नर्मदा-नद्याः तटे मृदु-संगमरमर-प्रस्तरेण देवप्रतिमाः निर्मीयन्ते। इदं भौगोलिक-संकेतकेन (GI Tag) संरक्षितम् अस्ति।";
+                } else {
+                    return "<strong>Sanskriti AI:</strong> Jabalpur Bhedaghat soft marble rock craft Narmada river ke kinaare 200 saal se chala aa raha hai. Yeh 100% GI-certified hai aur LearnUp me Harishiram Prajapati ji ki live workshop bhi available hai!";
+                }
+            }
+
+            // 2. 88% Direct Artisan Payout
+            if (q.includes('88%') || q.includes('payout') || q.includes('भुगतान') || q.includes('पैसे') || q.includes('payment') || q.includes('escrow') || q.includes('artisan')) {
+                if (lang === 'hi') {
+                    return "<strong>संस्कृति AI:</strong> कलासेतु का मिशन 'बिचौलिया-मुक्त भारत' है। जब भी आप कोई शिल्प खरीदते हैं, तो कुल राशि का <strong>88% हिस्सा सीधे कारीगर के बैंक खाते</strong> में ट्रांसफ़र होता है। शेष 12% लॉजिस्टिक्स व जीआई पैकेजिंग में जाता है।";
+                } else if (lang === 'en') {
+                    return "<strong>Sanskriti AI:</strong> KalaSetu operates on a zero-middleman model. <strong>88% of your payment is credited directly into the verified artisan's bank account</strong> through our GI escrow gateway.";
+                } else {
+                    return "<strong>Sanskriti AI:</strong> KalaSetu me 88% direct payout hota hai — matlab koi middleman cut nahi, saara paisa seedhe verified artisan ke bank account me jata hai!";
+                }
+            }
+
+            // 3. GI Tag Verification
+            if (q.includes('gi') || q.includes('tag') || q.includes('verify') || q.includes('प्रमाणित') || q.includes('टैग')) {
+                if (lang === 'hi') {
+                    return "<strong>संस्कृति AI:</strong> प्रत्येक कलाकृति पर एक 12-अंकों का विशिष्ट जीआई कोड होता है। आप हमारे <strong>'GI Verification Studio'</strong> में जाकर (जैसे `MP-JBL-8842` या `MP-MAH-2024`) आधिकारिक डिजिटल प्रमाण-पत्र देख सकते हैं।";
+                } else {
+                    return "<strong>Sanskriti AI:</strong> Every craft on KalaSetu has a 12-digit GI Tag code. You can test codes like `MP-JBL-8842` (Jabalpur) or `MP-MAH-2024` (Maheshwar) in the GI Verification Studio to see the authentic provenance certificate!";
+                }
+            }
+
+            // 4. LearnUp Workshops
+            if (q.includes('learnup') || q.includes('workshop') || q.includes('course') || q.includes('सिख') || q.includes('वर्कशॉप') || q.includes('क्लास')) {
+                if (lang === 'hi') {
+                    return "<strong>संस्कृति AI:</strong> LearnUp में आप सीधे राष्ट्रीय पुरस्कार विजेता गुरुओं से लाइव सीख सकते हैं। जैसे: 🗿 भेड़ाघाट मार्बल छेनी तराशना (हरिराम प्रजापति), 🎨 गोंड ट्राइबल पेंटिंग (भज्जू श्याम गिल्ड), और 🥻 महेश्वरी करघा बुनाई।";
+                } else {
+                    return "<strong>Sanskriti AI:</strong> LearnUp connects you with master artisans for live masterclasses: Bhedaghat Marble Sculpting (4-week kit included), Gond Tribal Painting, and Maheshwari Pit-Loom weaving!";
+                }
+            }
+
+            // 5. General Fallback
+            if (lang === 'hi') {
+                return "<strong>संस्कृति AI:</strong> मैं कलासेतु के सभी राज्यों (मध्य प्रदेश, राजस्थान, उत्तर प्रदेश, कश्मीर, गुजरात, ओडिशा) के हस्तशिल्पों, जीआई टैग्स, कारीगरों और लाइव वर्कशॉप्स की पूरी जानकारी रखती हूँ। कृपया अपना प्रश्न पूछें!";
+            } else if (lang === 'en') {
+                return "<strong>Sanskriti AI:</strong> I am your dedicated cultural guide for KalaSetu. Ask me about crafts from MP, Rajasthan, UP, Kashmir, Gujarat, Odisha, GI verification, or LearnUp masterclasses!";
+            } else {
+                return "<strong>Sanskriti AI:</strong> Main KalaSetu ki official AI assistant hoon. Aap mujhse kisi bhi state, craft, city, GI Tag, ya masterclass ke baare me pooch sakte hain!";
+            }
+        }
+
+        // Voice Read-Aloud for AI Messages
+        function readAiMsg(speakerBtn) {
+            window.speechSynthesis.cancel();
+            const text = speakerBtn.parentElement.innerText.replace('🔊', '').replace('संस्कृति AI:', '').replace('Sanskriti AI:', '').trim();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.lang = activeAiLanguage === 'en' ? 'en-US' : (activeAiLanguage === 'gu' ? 'gu-IN' : (activeAiLanguage === 'bn' ? 'bn-IN' : (activeAiLanguage === 'mr' ? 'mr-IN' : (activeAiLanguage === 'ta' ? 'ta-IN' : 'hi-IN'))));
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>
