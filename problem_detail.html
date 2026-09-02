@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ problem.title }} - Support</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 2rem; }
+        .form-container { max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-bottom: 0.5rem; }
+        p { color: #666; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        input[type="text"], textarea { width: 100%; padding: 0.8rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 120px; resize: vertical; }
+        button { background: #27ae60; color: white; border: none; padding: 0.8rem 1.5rem; font-size: 1rem; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { background: #219150; }
+        .back-link { display: inline-block; margin-top: 1rem; color: #3498db; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>{{ problem.icon }} {{ problem.title }}</h1>
+        <p>{{ problem.description }}</p>
+
+        <form action="/submit-ticket" method="POST">
+            <input type="hidden" name="category" value="{{ category }}">
+            
+            <div class="form-group">
+                <label for="name">Aapka Naam:</label>
+                <input type="text" id="name" name="name" required placeholder="Apna naam darj karein">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Samasya Ka Vivran (Describe Issue):</label>
+                <textarea id="description" name="description" required placeholder="Apni samasya vistaar se likhein..."></textarea>
+            </div>
+
+            <button type="submit">Submit Problem</button>
+        </form>
+
+        <a href="/" class="back-link">← Wapas Main Sections Par Jayein</a>
+    </div>
+
+</body>
+</html>
